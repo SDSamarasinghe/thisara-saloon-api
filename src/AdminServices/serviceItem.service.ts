@@ -12,7 +12,7 @@ import { Query } from 'express-serve-static-core';
 import { User } from '../auth/schemas/user.schema';
 
 @Injectable()
-export class BookService {
+export class AdminService {
   constructor(
     @InjectModel(Service.name)
     private bookModel: mongoose.Model<Service>,

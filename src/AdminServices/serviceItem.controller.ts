@@ -12,7 +12,8 @@ import {
 } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-service.dto';
 import { UpdateBookDto } from './dto/update-service.dto';
-import { BookService } from './serviceItem.service';
+// import { BookService } from './serviceItem.service';
+import { AdminService } from './serviceItem.service';
 // import { Book } from './schemas/book.schema';
 import { Service } from './schemas/service.schema';
 
@@ -21,11 +22,11 @@ import { Query as ExpressQuery } from 'express-serve-static-core';
 
 @Controller('books')
 export class BookController {
-  constructor(private bookService: BookService) {}
+  constructor(private adminService: AdminService) {}
 
   @Get()
   async getAllBooks(@Query() query: ExpressQuery): Promise<Service[]> {
-    return this.bookService.findAll(query);
+    return this.adminService.findAll(query);
   }
 
   @Post()
@@ -35,7 +36,7 @@ export class BookController {
     book: CreateBookDto,
     @Req() req,
   ): Promise<Service> {
-    return this.bookService.create(book, req.user);
+    return this.adminService.create(book, req.user);
   }
 
   @Get(':id')
@@ -43,7 +44,7 @@ export class BookController {
     @Param('id')
     id: string,
   ): Promise<Service> {
-    return this.bookService.findById(id);
+    return this.adminService.findById(id);
   }
 
   @Put(':id')
@@ -53,7 +54,7 @@ export class BookController {
     @Body()
     book: UpdateBookDto,
   ): Promise<Service> {
-    return this.bookService.updateById(id, book);
+    return this.adminService.updateById(id, book);
   }
 
   @Delete(':id')
@@ -61,6 +62,6 @@ export class BookController {
     @Param('id')
     id: string,
   ): Promise<Service> {
-    return this.bookService.deleteById(id);
+    return this.adminService.deleteById(id);
   }
 }
