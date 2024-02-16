@@ -12,15 +12,15 @@ export enum Category {
 @Schema({
   timestamps: true,
 })
-export class Book {
+export class Service {
   @Prop()
-  title: string;
+  service_title: string;
 
   @Prop()
   description: string;
 
   @Prop()
-  author: string;
+  image: string;
 
   @Prop()
   price: number;
@@ -32,4 +32,4 @@ export class Book {
   user: User;
 }
 
-export const BookSchema = SchemaFactory.createForClass(Book);
+export const ServiceSchema = SchemaFactory.createForClass(Service);

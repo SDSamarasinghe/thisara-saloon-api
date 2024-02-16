@@ -10,11 +10,11 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { BookService } from './book.service';
-import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
+import { CreateBookDto } from './dto/create-service.dto';
+import { UpdateBookDto } from './dto/update-service.dto';
+import { BookService } from './serviceItem.service';
 // import { Book } from './schemas/book.schema';
-import { Book } from './schemas/book.schema';
+import { Service } from './schemas/service.schema';
 
 import { AuthGuard } from '@nestjs/passport';
 import { Query as ExpressQuery } from 'express-serve-static-core';
@@ -24,7 +24,7 @@ export class BookController {
   constructor(private bookService: BookService) {}
 
   @Get()
-  async getAllBooks(@Query() query: ExpressQuery): Promise<Book[]> {
+  async getAllBooks(@Query() query: ExpressQuery): Promise<Service[]> {
     return this.bookService.findAll(query);
   }
 
@@ -34,7 +34,7 @@ export class BookController {
     @Body()
     book: CreateBookDto,
     @Req() req,
-  ): Promise<Book> {
+  ): Promise<Service> {
     return this.bookService.create(book, req.user);
   }
 
@@ -42,7 +42,7 @@ export class BookController {
   async getBook(
     @Param('id')
     id: string,
-  ): Promise<Book> {
+  ): Promise<Service> {
     return this.bookService.findById(id);
   }
 
@@ -52,7 +52,7 @@ export class BookController {
     id: string,
     @Body()
     book: UpdateBookDto,
-  ): Promise<Book> {
+  ): Promise<Service> {
     return this.bookService.updateById(id, book);
   }
 
@@ -60,7 +60,7 @@ export class BookController {
   async deleteBook(
     @Param('id')
     id: string,
-  ): Promise<Book> {
+  ): Promise<Service> {
     return this.bookService.deleteById(id);
   }
 }

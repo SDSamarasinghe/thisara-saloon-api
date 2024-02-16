@@ -6,12 +6,12 @@ import {
   IsString,
 } from 'class-validator';
 import { User } from '../../auth/schemas/user.schema';
-import { Category } from '../schemas/book.schema';
+import { Category } from '../schemas/service.schema';
 
 export class CreateBookDto {
   @IsNotEmpty()
   @IsString()
-  readonly title: string;
+  readonly service_title: string;
 
   @IsNotEmpty()
   @IsString()
@@ -19,7 +19,7 @@ export class CreateBookDto {
 
   @IsNotEmpty()
   @IsString()
-  readonly author: string;
+  readonly image: string;
 
   @IsNotEmpty()
   @IsNumber()

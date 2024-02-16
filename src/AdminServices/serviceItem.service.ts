@@ -6,7 +6,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 // import { Book } from './schemas/book.schema';
-import { Book } from './schemas/book.schema';
+import { Service } from './schemas/service.schema';
 
 import { Query } from 'express-serve-static-core';
 import { User } from '../auth/schemas/user.schema';
@@ -14,11 +14,11 @@ import { User } from '../auth/schemas/user.schema';
 @Injectable()
 export class BookService {
   constructor(
-    @InjectModel(Book.name)
-    private bookModel: mongoose.Model<Book>,
+    @InjectModel(Service.name)
+    private bookModel: mongoose.Model<Service>,
   ) {}
 
-  async findAll(query: Query): Promise<Book[]> {
+  async findAll(query: Query): Promise<Service[]> {
     const resPerPage = 2;
     const currentPage = Number(query.page) || 1;
     const skip = resPerPage * (currentPage - 1);
@@ -39,14 +39,14 @@ export class BookService {
     return books;
   }
 
-  async create(book: Book, user: User): Promise<Book> {
+  async create(book: Service, user: User): Promise<Service> {
     const data = Object.assign(book, { user: user._id });
 
     const res = await this.bookModel.create(data);
     return res;
   }
 
-  async findById(id: string): Promise<Book> {
+  async findById(id: string): Promise<Service> {
     const isValidId = mongoose.isValidObjectId(id);
 
     if (!isValidId) {
@@ -62,14 +62,14 @@ export class BookService {
     return book;
   }
 
-  async updateById(id: string, book: Book): Promise<Book> {
+  async updateById(id: string, book: Service): Promise<Service> {
     return await this.bookModel.findByIdAndUpdate(id, book, {
       new: true,
       runValidators: true,
     });
   }
 
-  async deleteById(id: string): Promise<Book> {
+  async deleteById(id: string): Promise<Service> {
     return await this.bookModel.findByIdAndDelete(id);
   }
 }
